@@ -1,0 +1,9 @@
+server {
+	listen 4000 default;
+	server_name acristin.42.fr;
+
+	location / {
+		root /var/www/html;
+		index index.html index.htm;
+	}
+}
