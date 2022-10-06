@@ -1,6 +1,6 @@
-FROM	debian:buster
+FROM debian:buster
 
-RUN	apt-get -y update && \
+RUN apt-get -y update && \
 	apt-get -y install php7.3 php-mysqli php-fpm wget && \
 	mkdir -p /var/www/html/ && \
 	chown -R www-data:www-data /var/www/* && \

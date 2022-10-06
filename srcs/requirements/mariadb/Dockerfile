@@ -1,4 +1,4 @@
-FROM	debian:buster
+FROM debian:buster
 
 RUN apt-get -y update && \
 	apt-get -y install mariadb-server && \
@@ -7,13 +7,12 @@ RUN apt-get -y update && \
 	chown -R mysql:mysql /run/mysqld && \
 	chown -R mysql:mysql /var/lib/mysql
 
-COPY	./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY	./tools/docker-entrypoint.sh ./
+EXPOSE 3306
 
-EXPOSE	3306
+COPY /conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./execute/docker-entrypoint.sh ./
 
-RUN	chmod +x ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
 
-ENTRYPOINT	["./docker-entrypoint.sh"]
-
-CMD	["mysql"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["mysqld"]

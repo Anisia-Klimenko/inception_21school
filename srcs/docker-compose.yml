@@ -1,5 +1,4 @@
 version: '3'
-
 services:
 
   nginx:
@@ -111,11 +110,10 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/acristin/data/wp
-  
+      device: ${HOME}/data/wp
   db-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/acristin/data/db
+      device: ${HOME}/data/db
