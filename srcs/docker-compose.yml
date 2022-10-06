@@ -2,7 +2,7 @@ version: '3'
 services:
 
   nginx:
-    build: ./requirements/nginx/
+    build: requirements/nginx/
     container_name: nginx
     volumes:
       - wp-data:/var/www/html
@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   mariadb:
-    build: ./requirements/mariadb/
+    build: requirements/mariadb/
     container_name: mariadb
     volumes:
       - db-data:/var/lib/mysql
@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
 
   wordpress:
-    build: ./requirements/wordpress/
+    build: requirements/wordpress/
     container_name: wordpress
     volumes:
       - wp-data:/var/www/html
@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
 
   redis:
-    build: ./requirements/bonus/redis/
+    build: requirements/bonus/redis
     container_name: redis
     networks:
       - inception
@@ -54,7 +54,7 @@ services:
       net.core.somaxconn: "4096"
   
   ftp:
-    build: ./requirements/bonus/ftp/
+    build: requirements/bonus/ftp
     container_name: ftp
     volumes:
       - wp-data:/var/www/html
@@ -68,7 +68,7 @@ services:
       - .env
   
   adminer:
-    build: ./requirements/bonus/adminer/
+    build: requirements/bonus/adminer
     container_name: adminer
     restart: unless-stopped
     networks:
@@ -77,7 +77,7 @@ services:
       - mariadb
 
   container-stats:
-    build: ./requirements/bonus/container-stats/
+    build: requirements/bonus/container-stats
     container_name: container-stats
     environment:
       STATS_UPDATE_INTERVAL: 10
@@ -92,7 +92,7 @@ services:
     restart: unless-stopped
 
   website:
-    build: ./requirements/bonus/website/
+    build: requirements/bonus/website
     container_name: website
     networks:
       - inception

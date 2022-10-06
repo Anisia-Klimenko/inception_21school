@@ -24,7 +24,7 @@ fclean : clean
 	docker system prune -f
 
 ps:
-	docker-compose -f ${SRC} ps
+	docker-compose -f srcs/docker-compose.yml ps
 
 .PHONY: clean fclean all stop ps
 
