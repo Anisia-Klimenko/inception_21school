@@ -7,7 +7,7 @@ EXPOSE	21100
 EXPOSE	21
 
 COPY	./conf/vsftpd.conf /etc/vsftpd.conf
-COPY	./tools/docker-entrypoint.sh
+COPY	./tools/docker-entrypoint.sh ./
 
 RUN	chmod +x ./docker-entrypoint.sh
 

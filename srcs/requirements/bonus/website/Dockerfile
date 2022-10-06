@@ -1,7 +1,7 @@
 FROM	debian:buster
 
 RUN	apt-get -y update && \
-	apt-get -y install nging && \
+	apt-get -y install nginx && \
 	mkdir -p /var/www/html
 
 EXPOSE	4000

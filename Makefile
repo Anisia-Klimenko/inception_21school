@@ -21,3 +21,5 @@ ps:
 	docker-compose -f ${SRC} ps
 
 re:	fclean all
+
+.PHONY:	all stop clean fclean ps re

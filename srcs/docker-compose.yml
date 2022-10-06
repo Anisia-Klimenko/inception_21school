@@ -11,7 +11,7 @@ services:
       - .env
     ports:
       - "443:443"
-    network:
+    networks:
       - inception
     depends_on:
       - wordpress
@@ -25,7 +25,7 @@ services:
       - db-data:/var/lib/mysql
     env_file:
       - .env
-    network:
+    networks:
       - inception
     restart: always
 
@@ -36,7 +36,7 @@ services:
       - wp-data:/var/www/html
     env_file:
       - .env
-    network:
+    networks:
       - inception
     depends_on:
       - mariadb
@@ -48,7 +48,7 @@ services:
     container_name: redis
     env_file:
       - .env
-    network:
+    networks:
       - inception
     sysctls:
       net.core.somaxconn: "4096"
@@ -64,7 +64,7 @@ services:
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
-    network:
+    networks:
       - inception
     restart: always
 
@@ -73,7 +73,7 @@ services:
     container_name: adminer
     env_file:
       - .env
-    network:
+    networks:
       - inception
     depends_on:
       - mariadb
@@ -90,7 +90,7 @@ services:
       - .env
     ports:
       - "8080:8080"
-    network:
+    networks:
       - inception
     restart: always
 
@@ -99,7 +99,7 @@ services:
     container_name: website
     ports:
       - "4000:4000"
-    network:
+    networks:
       - inception
     restart: always
 
