@@ -8,7 +8,7 @@ RUN	apt-get -y update && \
 	-keyout /etc/nginx/ssl/acristin.key \
 	-subj "/C=RU/ST=Moscow/L=Moscow/O=school21/OU=acristin/CN=https:acristin.42.fr/emailAddress=acristin@42.fr"
 
-COPY	/conf/config /etc/nginx/sites-available/default
+COPY	/conf/nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE	443
 

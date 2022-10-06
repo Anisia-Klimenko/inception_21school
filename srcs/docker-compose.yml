@@ -3,20 +3,20 @@ version: '3'
 services:
 
   nginx:
-    build: ./requirements/nginx
+    build: ./requirements/nginx/
     container_name: nginx
     volumes:
       - wp-data:/var/www/html
     env_file:
       - .env
-    ports:
-      - "443:443"
     networks:
       - inception
+    ports:
+      - "443:443"
     depends_on:
       - wordpress
       - adminer
-    restart: always
+    restart: unless-stopped
 
   mariadb:
     build: ./requirements/mariadb/
@@ -27,82 +27,79 @@ services:
       - .env
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
 
   wordpress:
     build: ./requirements/wordpress/
     container_name: wordpress
     volumes:
       - wp-data:/var/www/html
+    depends_on:
+      - mariadb
+      - redis
     env_file:
       - .env
     networks:
       - inception
-    depends_on:
-      - mariadb
-      - redis
-    restart: always
+    restart: unless-stopped
 
   redis:
     build: ./requirements/bonus/redis/
     container_name: redis
-    env_file:
-      - .env
     networks:
       - inception
+    env_file:
+      - .env
+    restart: unless-stopped
     sysctls:
       net.core.somaxconn: "4096"
-    restart: always
-
+  
   ftp:
     build: ./requirements/bonus/ftp/
     container_name: ftp
     volumes:
       - wp-data:/var/www/html
-    env_file:
-      - .env
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
     networks:
       - inception
-    restart: always
-
+    restart: unless-stopped
+    env_file:
+      - .env
+  
   adminer:
     build: ./requirements/bonus/adminer/
     container_name: adminer
-    env_file:
-      - .env
+    restart: unless-stopped
     networks:
       - inception
     depends_on:
       - mariadb
-    restart: always
 
   container-stats:
     build: ./requirements/bonus/container-stats/
     container_name: container-stats
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
       STATS_UPDATE_INTERVAL: 10
-    env_file:
-      - .env
     ports:
-      - "8080:8080"
+      - 8080:8080
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     networks:
       - inception
-    restart: always
+    env_file:
+      - .env
+    restart: unless-stopped
 
   website:
     build: ./requirements/bonus/website/
     container_name: website
-    ports:
-      - "4000:4000"
     networks:
       - inception
-    restart: always
-
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
 
 networks:
   inception:
@@ -112,13 +109,13 @@ volumes:
   wp-data:
     driver: local
     driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/data/wp
-
+      type: 'none'
+      o: 'bind'
+      device: ${HOME}/acristin/data/wp
+  
   db-data:
     driver: local
     driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/data/db
+      type: 'none'
+      o: 'bind'
+      device: ${HOME}/acristin/data/db
