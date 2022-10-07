@@ -6,7 +6,7 @@ RUN apt-get -y update && \
 EXPOSE 4000
 
 COPY /conf/nginx.conf /etc/nginx/sites-available/default
-COPY /site /var/www/html
+COPY /tools /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
